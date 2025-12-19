@@ -3,37 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Photo Finder Pro</title>
+    <title>AI Photo Finder Pro | Private & Local</title>
     <link rel="stylesheet" href="style.css">
     <script defer src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <script defer src="app.js"></script>
 </head>
 <body>
+
+    <div id="disclaimer-overlay" class="modal-overlay">
+        <div class="modal-content">
+            <h2>🚀 Getting Started</h2>
+            <hr>
+            <div class="notice-body">
+                <div class="notice-item">
+                    <span>🔒</span>
+                    <p><strong>100% Private:</strong> All processing happens locally. Your photos are never uploaded to any server.</p>
+                </div>
+                <div class="notice-item">
+                    <span>⚖️</span>
+                    <p><strong>Accuracy:</strong> AI is not 100% perfect. Use the sensitivity slider and upload 3-5 selfies for best results.</p>
+                </div>
+                <div class="notice-item">
+                    <span>⚡</span>
+                    <p><strong>Performance:</strong> Scan speed depends on your hardware (CPU/GPU). Close heavy apps for a faster scan.</p>
+                </div>
+            </div>
+            <button id="close-disclaimer" class="btn-primary-large">I Understand & Accept</button>
+        </div>
+    </div>
+
     <div class="container">
         <header>
             <h1>📸 AI Photo Finder Pro</h1>
-            <p id="status" class="status-badge">Loading AI...</p>
+            <p id="status" class="status-badge">Initialising Neural Networks...</p>
         </header>
 
         <section class="setup-grid">
             <div class="card">
-                <h3>1. Reference Selfie</h3>
-                <input type="file" id="selfie-upload" accept="image/*">
+                <h3>Step 1: Reference Selfies</h3>
+                <p class="instruction">Upload 3-5 photos of yourself (different angles).</p>
+                <input type="file" id="selfie-upload" accept="image/*" multiple>
+                <div id="selfie-previews" class="preview-strip"></div>
             </div>
             <div class="card">
-                <h3>2. Target Folder</h3>
+                <h3>Step 2: Event Folder</h3>
+                <p class="instruction">Select the folder you want to search.</p>
                 <input type="file" id="folder-upload" webkitdirectory directory multiple disabled>
             </div>
         </section>
 
-        <div id="stats-dashboard" class="stats-grid">
+        <div class="stats-grid">
             <div class="stat-box">
                 <span class="stat-label">Velocity</span>
                 <span id="stat-speed" class="stat-value">0.0 img/s</span>
             </div>
             <div class="stat-box">
-                <span class="stat-label">RAM Usage</span>
+                <span class="stat-label">Browser RAM</span>
                 <span id="stat-memory" class="stat-value">---</span>
             </div>
             <div class="stat-box">
@@ -44,12 +70,13 @@
 
         <section class="options-bar">
             <div class="setting-item">
-                <label>Sensitivity (Strict <-> Loose)</label>
+                <label>AI Sensitivity (Strict <-> Loose)</label>
                 <div class="slider-container">
-                    <input type="range" id="sensitivity-slider" min="0.3" max="0.8" step="0.05" value="0.6">
-                    <span id="threshold-val">0.60</span>
+                    <span>0.3</span>
+                    <input type="range" id="sensitivity-slider" min="0.3" max="0.8" step="0.05" value="0.45">
+                    <span>0.8</span>
                 </div>
-                <p>Recomended Valude : 0.40 to 0.50</p>
+                <small>Threshold: <span id="threshold-val">0.45</span></small>
             </div>
             <div class="privacy-toggle">
                 <label class="switch">
@@ -58,11 +85,11 @@
                 </label>
                 <span>Privacy Mode</span>
             </div>
-            <button id="clear-btn" class="btn-clear">Clear Memory</button>
+            <button id="clear-btn" class="btn-clear">Clear All</button>
         </section>
 
-        <div id="progress-section" style="display:none;">
-            <div class="progress-text">Processing: <b id="progress-count">0</b> / <span id="total-count">0</span></div>
+        <div id="progress-section" style="display:none;" class="card">
+            <p>Scanning: <b id="progress-count">0</b> / <span id="total-count">0</span></p>
             <progress id="scan-progress" value="0" max="100"></progress>
             <div class="control-btns">
                 <button id="pause-btn" class="btn-pause">Pause</button>
@@ -71,22 +98,20 @@
         </div>
 
         <div id="summary-card" class="card summary-report" style="display:none;">
-            <h3 id="summary-title">📊 Scan Summary</h3>
+            <h3>📊 Scan Summary</h3>
             <div class="summary-grid">
-                <div class="summary-item"><strong>Time:</strong> <span id="sum-time">0s</span></div>
-                <div class="summary-item"><strong>Images Checked:</strong> <span id="sum-total">0</span></div>
-                <div class="summary-item"><strong>Matches:</strong> <span id="sum-matches">0</span></div>
-                <div class="summary-item"><strong>Latency:</strong> <span id="sum-avg">0</span> ms/img</div>
+                <div>Time: <span id="sum-time">0s</span></div>
+                <div>Matches: <span id="sum-matches">0</span></div>
+                <div>Avg Speed: <span id="sum-avg">0</span> ms/img</div>
             </div>
         </div>
 
         <div class="actions" id="actions-bar" style="display:none;">
-            <h3 id="match-count">0 Photos Found</h3>
-            <button id="download-zip" class="btn-download">Download All (.ZIP)</button>
+            <h3 id="match-count">0 matches found</h3>
+            <button id="download-zip" class="btn-download">Download as ZIP</button>
         </div>
 
         <div id="results-gallery"></div>
     </div>
 </body>
-
 </html>

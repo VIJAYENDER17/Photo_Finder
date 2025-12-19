@@ -33,7 +33,7 @@ Unlike cloud-based solutions, this tool processes everything **locally** in the 
 ## ⚙️ How to Run Locally
 1.  **Clone the Repo:**
     ```bash
-    git clone [https://github.com/YOUR_USERNAME/ai-photo-finder.git](https://github.com/YOUR_USERNAME/ai-photo-finder.git)
+    git clone [https://github.com/VIJAYENDER17/Photo_Finder.git](https://github.com/VIJAYENDER17/Photo_Finder.git)
     ```
 2.  **Models:** Ensure the weights for `ssd_mobilenetv1`, `face_landmark_68`, and `face_recognition` are located in the `/models` directory.
 3.  **Launch:**

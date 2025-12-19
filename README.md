@@ -61,5 +61,5 @@ Unlike cloud-based solutions, this tool processes everything **locally** in the 
 Distributed under the MIT License. See `LICENSE` for more information.
 
 ## 📬 Contact
-Your Name - [Your LinkedIn](https://linkedin.com/in/yourprofile) - your@email.com
-Project Link: [https://github.com/YOUR_USERNAME/ai-photo-finder](https://github.com/YOUR_USERNAME/ai-photo-finder)
+Your Name - [Your LinkedIn](https://linkedin.com/in/v-n-vijayender-sudabathula-0b5a23227) - vijayendersvn@email.com
+Project Link: https://photofinds.netlify.app/
